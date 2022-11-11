@@ -63,6 +63,7 @@ nav {
 
 	header .responsive_nav {
 		transform: none;
+		height: 100;
 	}
 
 	nav .nav-close-btn {
