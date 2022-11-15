@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { Link, Route, Routes } from "react-router-dom";
+import {  Link, Route, Routes } from "react-router-dom";
+import CreateForm from "../CreateGroup/CreateForm";
 import Home from "../Home/Home";
 import Projects from "../Projects/Projects";
 import "./NavBar.css";
@@ -18,10 +19,10 @@ function NavBar() {
         <h3>Project Statusses</h3>
         <nav ref={navRef}>
           <div className="link">
-            <Link to="/">Home</Link>
+            <Link to="/" onClick={() => localStorage.clear()}>Home</Link>
           </div>
           <div className="link">
-            <Link to="/projects">Projects</Link>
+            <Link to="/projects" onClick={() => localStorage.clear()}>Projects</Link>
           </div>
           <button className="nav-btn nav-close-btn" onClick={showNavbar}>
             <FaTimes />
@@ -34,6 +35,8 @@ function NavBar() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/projects" element={<Projects />} />
+        <Route path="/create" element={<CreateForm />} />
+
       </Routes>
     </div>
   );

@@ -1,17 +1,20 @@
 {
-  "name": "ol-academy-context-menu",
+  "name": "ol-academy-project-statusses",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
+    "i": "^0.3.7",
     "node-sass": "^7.0.3",
+    "npm": "^9.1.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.5",
+    "tailwindcss": "^3.2.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
