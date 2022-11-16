@@ -14,12 +14,12 @@ function CreateGroup() {
     <div>
       <div>
         <div>Group Name</div>
-        <div>
+        <div className="input">
           <input
             type="text"
             placeholder="Enter GroupName"
-            onChange={handleChange}
             value={inputValue}
+            onChange={handleChange}
           />
         </div>
       </div>

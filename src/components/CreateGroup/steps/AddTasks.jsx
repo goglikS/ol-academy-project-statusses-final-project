@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useLocalStorage from "../LocalStorage";
+import './steps.css'
 
 export default function AddTasks() {
   const [inputValue, setInputValue] = useState("");
@@ -28,11 +29,12 @@ export default function AddTasks() {
 
   return (
     <div>
-      <div>
+      <div className="wrapper center">
         <div>Tasks </div>
         <div>
           <input
             type="text"
+            className="input"
             placeholder="Enter Student"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

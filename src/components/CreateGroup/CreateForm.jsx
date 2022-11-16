@@ -7,6 +7,7 @@ import AddStudents from "./steps/AddStudents";
 import AddTasks from "./steps/AddTasks";
 import Details from "./steps/Details";
 import Final from "./steps/Final";
+import './steps/steps.css'
 
 function CreateForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -39,15 +40,14 @@ function CreateForm() {
 
   return (
     <div>
-      <div>
-        <Form steps={steps} currentStep={currentStep} />
+      <div  className="test" >
+        <Form steps={steps} currentStep={currentStep} className="test" />
 
         <div>
           <UseContextProvider>{displayStep(currentStep)}</UseContextProvider>
         </div>
       </div>
 
-      {/* navigation button */}
       {currentStep !== steps.length && (
         <FormControl
           handleClick={handleClick}

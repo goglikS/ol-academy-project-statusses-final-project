@@ -1,0 +1,15 @@
+input {
+  width: 300px;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.test {
+  text-align: center;
+}
+
+.navBtn{
+ margin: 100px;
+}

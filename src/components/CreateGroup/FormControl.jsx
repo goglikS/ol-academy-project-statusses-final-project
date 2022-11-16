@@ -1,11 +1,14 @@
+import { Button } from "reactstrap";
+import './steps/steps.css'
+
 export default function FormControl({ handleClick, currentStep, steps }) {
   return (
-    <div>
-      <button onClick={() => handleClick()}>Back</button>
+    <div className="center ">
+      <Button className="navBtn" onClick={() => handleClick()}>Back</Button>
 
-      <button onClick={() => handleClick("next")}>
+      <Button className="navBtn" onClick={() => handleClick("next")}>
         {currentStep === steps.length - 1 ? "Confirm" : "Next"}
-      </button>
+      </Button>
     </div>
   );
 }
