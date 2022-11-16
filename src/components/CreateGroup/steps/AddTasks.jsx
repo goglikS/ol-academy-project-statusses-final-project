@@ -29,9 +29,9 @@ export default function AddTasks() {
 
   return (
     <div>
-      <div className="wrapper center">
+      <div >
         <div>Tasks </div>
-        <div>
+        <div className="input">
           <input
             type="text"
             className="input"

@@ -6,8 +6,8 @@ export default function FormControl({ handleClick, currentStep, steps }) {
     <div className="center ">
       <Button className="navBtn" onClick={() => handleClick()}>Back</Button>
 
-      <Button className="navBtn" onClick={() => handleClick("next")}>
-        {currentStep === steps.length - 1 ? "Confirm" : "Next"}
+      <Button className="navBtn"   onClick={ currentStep > 4 ? console.log("confirm") : () => handleClick("next")}>
+        {currentStep ===  4 ? "Confirm" : "Next"}
       </Button>
     </div>
   );

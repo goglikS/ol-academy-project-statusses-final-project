@@ -34,7 +34,7 @@ export default function AddStudents() {
   return (
     <div>
       <div>
-        <div>Group Name </div>
+        <div>Add Students</div>
         <div>
           <input
             type="text"
@@ -43,7 +43,7 @@ export default function AddStudents() {
             onChange={(e) => setInputValue(e.target.value)}
           />
 
-          <button type="button" onClick={handleSubmit}>
+          <button type="button" className="btn btn-outline-secondary" onClick={handleSubmit}>
             Add Student
           </button>
           <div>
@@ -51,7 +51,7 @@ export default function AddStudents() {
               {studentList.map((student) => (
                 <li key={student.id}>
                   {student.name}
-                  <button onClick={() => removeStudent(student.id)}>Del</button>
+                  <button className="btn btn-outline-secondary" onClick={() => removeStudent(student.id)}>Del</button>
                 </li>
               ))}
             </ul>
