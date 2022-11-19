@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useLocalStorage from "../LocalStorage";
+import useLocalStorage from "../../LocalStorage";
 
 export default function AddStudents() {
   const [inputValue, setInputValue] = useState("");
@@ -43,7 +43,11 @@ export default function AddStudents() {
             onChange={(e) => setInputValue(e.target.value)}
           />
 
-          <button type="button" className="btn btn-outline-secondary" onClick={handleSubmit}>
+          <button
+            type="button"
+            className="btn btn-outline-secondary"
+            onClick={handleSubmit}
+          >
             Add Student
           </button>
           <div>
@@ -51,7 +55,12 @@ export default function AddStudents() {
               {studentList.map((student) => (
                 <li key={student.id}>
                   {student.name}
-                  <button className="btn btn-outline-secondary" onClick={() => removeStudent(student.id)}>Del</button>
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => removeStudent(student.id)}
+                  >
+                    Del
+                  </button>
                 </li>
               ))}
             </ul>

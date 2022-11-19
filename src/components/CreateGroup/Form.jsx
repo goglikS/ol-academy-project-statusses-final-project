@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import './steps/steps.css'
+import "./steps/steps.css";
 
 const Form = ({ steps, currentStep }) => {
   const [newStep, setNewStep] = useState([]);
@@ -59,7 +59,7 @@ const Form = ({ steps, currentStep }) => {
 
   const stepsDisplay = newStep.map((step, index) => {
     return (
-      <div key={index} className="list-group-item wrapper center">
+      <div key={index} className="list-group-item-custom wrapper center">
         <div>
           <div>{step.completed ? <span>✔️</span> : index + 1}</div>
           <div>{step.description}</div>
@@ -68,6 +68,10 @@ const Form = ({ steps, currentStep }) => {
     );
   });
 
-  return <div className="list-group list-group-horizontal wrapper center">{stepsDisplay}</div>;
+  return (
+    <div className="list-group list-group-horizontal wrapper center">
+      {stepsDisplay}
+    </div>
+  );
 };
 export default Form;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useLocalStorage from "../LocalStorage";
+import useLocalStorage from "../../LocalStorage";
 
 function CreateGroup() {
   const [groupName, setGroupName] = useLocalStorage("groupName");

@@ -1,73 +1,75 @@
-
-import { useState } from 'react';
-import { Table } from 'reactstrap';
-import './steps.css'
+import { Table } from "reactstrap";
+import "./steps.css";
+import useLocalStorage from "../../LocalStorage";
 
 export default function Details() {
   const groupName = JSON.parse(localStorage.getItem("groupName"));
-  const students = JSON.parse(localStorage.getItem("studentData"));
+  const studentsData = JSON.parse(localStorage.getItem("studentData"));
   const taskData = JSON.parse(localStorage.getItem("taskData"));
-  const [open, setOpen] = useState(false);
-  const [taskStatus,settaskStatus] = useState("Not Done")
-  const handleMenuOne = () => {
-    // do something
-    settaskStatus("middle")
+  const [groupData, setGroupData] = useLocalStorage("groupData");
+  const [finalData, setFinalData] = useLocalStorage("finalData");
+
+  const statusses = [
+    { id: 0, statusName: "❌❌Not Checked❌❌" },
+    { id: 1, statusName: "🚫🚫Fail🚫🚫" },
+    { id: 2, statusName: "🔧🔧 Need to Fix🔧🔧" },
+    { id: 3, statusName: "✔️✔️Need to Improve✔️✔️" },
+    { id: 4, statusName: "✅✅Done✅✅" },
+  ];
+
+  const updateStatus = (e, studentId, taskId) => {
+    const selectedIndex = e.target.options.selectedIndex;
+    let new_results = groupData.results.map((result) => {
+      if (result.studentId === studentId && result.taskId === taskId) {
+        let number = +e.target.options[selectedIndex].getAttribute("data-key");
+        result.taskStatus = statusses[number].statusName;
+      }
+      return result;
+    });
+    setGroupData({ ...groupData, results: new_results });
+    setFinalData(groupData);
   };
-
-  const handleMenuTwo = () => {
-    // do something
-    settaskStatus("done")
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const status = [];
-
-  for (let i = 0; i < students.length; i++) {
-    status.push(
-      <td scope="row" id={i}>
-        <button onClick={handleOpen}>{taskStatus}</button>
-      </td>
-    );
-  }
 
   return (
     <div className="table-responsive">
-      <h3>{groupName}</h3>
+      <h3>Group Name : {groupName}</h3>
+
       <Table className="table table-sm table-dark">
-        <tbody>
+        <thead>
           <tr>
-            <th scope="col">#</th>
-            {students.map((student) => (
+            <th>#</th>
+            {studentsData?.map((student) => (
               <th key={student.id}>{student.name}</th>
             ))}
           </tr>
+        </thead>
 
-          {taskData.map((task) => (
-            <tr>
-              <th scope="col" key={task.id}>
-                {task.taskName}
-              </th>
-              {status}
-            </tr>
-          ))}
+        <tbody>
+          {taskData?.map((task) => {
+            return (
+              <tr key={task.taskId}>
+                <th>{task.taskName}</th>
+                {studentsData.map((student, index) => {
+                  return (
+                    <td key={index}>
+                      <select
+                        onChange={(e) => updateStatus(e, student.id, task.id)}
+                      >
+                        {statusses.map((status, key) => (
+                          <option key={key} data-key={key}>
+                            {status.statusName}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+          {console.log(groupData)}
         </tbody>
       </Table>
-      <div>
-      
-      {open ? (
-        <ul className="menu">
-          <li className="menu-item">
-          <button onClick={handleMenuOne}>In the Middle</button>
-          </li>
-          <li className="menu-item">
-          <button onClick={handleMenuTwo}>Done</button>
-          </li>
-        </ul>
-      ) : null}
-    </div>
     </div>
   );
 }
