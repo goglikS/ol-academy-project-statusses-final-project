@@ -28,7 +28,11 @@ export default function AddTasks() {
       students.forEach((student) => {
         let data = { studentId: student.id, taskStatus: "❌❌Not Checked❌❌" };
         tasks.forEach((task) => {
-          results.push({ ...data, taskId: task.id });
+          results.push({
+            statusId: student.id + "." + task.id,
+            ...data,
+            taskId: task.id,
+          });
         });
       });
       let updResults = {

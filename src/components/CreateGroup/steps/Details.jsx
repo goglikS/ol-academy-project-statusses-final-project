@@ -1,6 +1,8 @@
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 import "./steps.css";
 import useLocalStorage from "../../LocalStorage";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Details() {
   const groupName = JSON.parse(localStorage.getItem("groupName"));
@@ -8,6 +10,8 @@ export default function Details() {
   const taskData = JSON.parse(localStorage.getItem("taskData"));
   const [groupData, setGroupData] = useLocalStorage("groupData");
   const [finalData, setFinalData] = useLocalStorage("finalData");
+  const [database, setDatabase] = useLocalStorage("database");
+  const [groupList, setGroupList] = useState(database ? database : []);
 
   const statusses = [
     { id: 0, statusName: "❌❌Not Checked❌❌" },
@@ -16,6 +20,17 @@ export default function Details() {
     { id: 3, statusName: "✔️✔️Need to Improve✔️✔️" },
     { id: 4, statusName: "✅✅Done✅✅" },
   ];
+
+  const clearStorage = () => {
+    let removeList = [
+      "studentData",
+      "groupName",
+      "taskData",
+      "groupData",
+      "studentData",
+    ];
+    removeList.forEach((k) => localStorage.removeItem(k));
+  };
 
   const updateStatus = (e, studentId, taskId) => {
     const selectedIndex = e.target.options.selectedIndex;
@@ -28,6 +43,14 @@ export default function Details() {
     });
     setGroupData({ ...groupData, results: new_results });
     setFinalData(groupData);
+  };
+
+  const handleGroup = () => {
+    let updatedDB = [...groupList];
+    updatedDB = [...updatedDB, { groupData }];
+    setDatabase(updatedDB);
+    clearStorage();
+    console.log(updatedDB);
   };
 
   return (
@@ -67,9 +90,11 @@ export default function Details() {
               </tr>
             );
           })}
-          {console.log(groupData)}
         </tbody>
       </Table>
+      <Button onClick={() => handleGroup()}>
+        <Link to="/">Save Group</Link>
+      </Button>
     </div>
   );
 }
