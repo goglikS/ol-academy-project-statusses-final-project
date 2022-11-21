@@ -3,53 +3,51 @@ import useLocalStorage from "../../LocalStorage";
 import "./steps.css";
 
 export default function AddTasks() {
-  const groupName = JSON.parse(localStorage.getItem("groupName"));
-
   const [taskData, setTaskData] = useLocalStorage("taskData");
-  const [taskList, setTaskList] = useState(taskData ? taskData : []);
-
-  const [groupData, setGroupData] = useLocalStorage("groupData");
-
-  const [data, setData] = useLocalStorage("studentData");
+  const studentsData = JSON.parse(localStorage.getItem("studentData"));
+  const [resultsData, setResultsData] = useLocalStorage("resultsData");
 
   const [inputValue, setInputValue] = useState("");
+
+  const [taskList, setTaskList] = useState(taskData ? taskData : []);
+
+  const groupResult = useState(resultsData ? resultsData : []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     addTask(inputValue);
     setInputValue("");
   };
+
   const addTask = (userInput) => {
     if (userInput !== "") {
       let tasks = [...taskList];
-      let students = [...data];
       tasks = [...tasks, { id: Date.now(), taskName: userInput }];
+
       let results = [];
-      students.forEach((student) => {
-        let data = { studentId: student.id, taskStatus: "❌❌Not Checked❌❌" };
+      studentsData.forEach((student) => {
         tasks.forEach((task) => {
           results.push({
             statusId: student.id + "." + task.id,
-            ...data,
+            taskStatus: "❌❌Not Checked❌❌",
+            studentId: student.id,
             taskId: task.id,
           });
         });
       });
-      let updResults = {
-        groupName: groupName,
-        students: students,
-        tasks: tasks,
-        results: results,
-      };
       setTaskList(tasks);
       setTaskData(tasks);
-      setGroupData(updResults);
+      setResultsData(results);
     } else alert("Wrong Value");
   };
+
   const handleDelete = (delId) => {
     let updatedTasks = [...taskList];
+    let updatedResults = [...groupResult];
+
     setTaskData(updatedTasks.filter(({ id }) => id !== delId));
     setTaskList(updatedTasks.filter(({ id }) => id !== delId));
+    setResultsData(updatedResults.filter(({ taskId }) => taskId !== delId));
   };
 
   return (
@@ -77,7 +75,12 @@ export default function AddTasks() {
               {taskList.map((task) => (
                 <li key={task.id}>
                   {task.taskName}
-                  <button onClick={() => handleDelete(task.id)}>Delete</button>
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>

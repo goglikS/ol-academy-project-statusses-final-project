@@ -61,3 +61,8 @@ input {
   border: var(--bs-list-group-border-width) solid
     var(--bs-list-group-border-color);
 }
+
+.finish-btn a {
+  text-decoration: none;
+  color: white;
+}

@@ -18,7 +18,7 @@ export default function AddStudents() {
       let updatedStudents = [...studentList];
       updatedStudents = [
         ...updatedStudents,
-        { id: Date.now(), name: userInput },
+        { id: Date.now(), studentName: userInput },
       ];
       setStudentData(updatedStudents);
       setStudentList(updatedStudents);
@@ -52,9 +52,9 @@ export default function AddStudents() {
           </button>
           <div>
             <ul>
-              {studentList.map((student) => (
+              {studentList?.map((student) => (
                 <li key={student.id}>
-                  {student.name}
+                  {student.studentName}
                   <button
                     className="btn btn-outline-secondary"
                     onClick={() => removeStudent(student.id)}

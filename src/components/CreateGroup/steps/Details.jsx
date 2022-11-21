@@ -8,10 +8,12 @@ export default function Details() {
   const groupName = JSON.parse(localStorage.getItem("groupName"));
   const studentsData = JSON.parse(localStorage.getItem("studentData"));
   const taskData = JSON.parse(localStorage.getItem("taskData"));
-  const [groupData, setGroupData] = useLocalStorage("groupData");
-  const [finalData, setFinalData] = useLocalStorage("finalData");
+  const resultsData = JSON.parse(localStorage.getItem("resultsData"));
   const [database, setDatabase] = useLocalStorage("database");
-  const [groupList, setGroupList] = useState(database ? database : []);
+
+  const [groupResults, setGroupResults] = useState(resultsData);
+
+  const groupList = useState(database ? database : []);
 
   const statusses = [
     { id: 0, statusName: "❌❌Not Checked❌❌" },
@@ -21,36 +23,33 @@ export default function Details() {
     { id: 4, statusName: "✅✅Done✅✅" },
   ];
 
-  const clearStorage = () => {
-    let removeList = [
-      "studentData",
-      "groupName",
-      "taskData",
-      "groupData",
-      "studentData",
-    ];
+  const setData = () => {
+    let newGroup = {
+      groupId: Date.now(),
+      groupName: groupName,
+      students: studentsData,
+      tasks: taskData,
+      results: groupResults,
+    };
+    let currentGroups = [...groupList];
+    currentGroups.push(newGroup);
+    setDatabase(currentGroups);
+    let removeList = ["groupName", "studentData", "taskData", "resultsData"];
     removeList.forEach((k) => localStorage.removeItem(k));
+
+    console.log(currentGroups);
   };
 
   const updateStatus = (e, studentId, taskId) => {
     const selectedIndex = e.target.options.selectedIndex;
-    let new_results = groupData.results.map((result) => {
+    let new_results = resultsData.map((result) => {
       if (result.studentId === studentId && result.taskId === taskId) {
         let number = +e.target.options[selectedIndex].getAttribute("data-key");
         result.taskStatus = statusses[number].statusName;
       }
       return result;
     });
-    setGroupData({ ...groupData, results: new_results });
-    setFinalData(groupData);
-  };
-
-  const handleGroup = () => {
-    let updatedDB = [...groupList];
-    updatedDB = [...updatedDB, { groupData }];
-    setDatabase(updatedDB);
-    clearStorage();
-    console.log(updatedDB);
+    setGroupResults(new_results);
   };
 
   return (
@@ -62,13 +61,13 @@ export default function Details() {
           <tr>
             <th>#</th>
             {studentsData?.map((student) => (
-              <th key={student.id}>{student.name}</th>
+              <th key={student.id}>{student.studentName}</th>
             ))}
           </tr>
         </thead>
 
         <tbody>
-          {taskData?.map((task) => {
+          {taskData.map((task) => {
             return (
               <tr key={task.taskId}>
                 <th>{task.taskName}</th>
@@ -92,9 +91,9 @@ export default function Details() {
           })}
         </tbody>
       </Table>
-      <Button onClick={() => handleGroup()}>
-        <Link to="/">Save Group</Link>
-      </Button>
+      <button type="button" class="btn btn-success finish-btn">
+        <Link to="/">Finish</Link>
+      </button>
     </div>
   );
 }
