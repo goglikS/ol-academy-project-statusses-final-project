@@ -33,11 +33,10 @@ export default function Details() {
       let currentGroups = [];
       currentGroups.push(newGroup);
       setDatabase(currentGroups);
-      console.log("carieli", currentGroups);
     } else {
       let currentGroups = [...database];
       currentGroups.push(newGroup);
-      console.log("aracarieli", currentGroups);
+      setDatabase(currentGroups);
     }
     let removeList = ["groupName", "studentData", "taskData", "resultsData"];
     removeList.forEach((k) => localStorage.removeItem(k));
