@@ -99,7 +99,7 @@ export default function Details() {
         class="btn btn-success finish-btn"
         onClick={() => setData()}
       >
-        {/* <Link to="/">Finish</Link> */}
+        <Link to="/">Finish</Link>
       </button>
     </div>
   );
