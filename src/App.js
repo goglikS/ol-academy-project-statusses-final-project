@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import Projects from "./components/Projects/Projects";
 import Home from "./components/Home/Home";
 import CreateForm from "./components/CreateGroup/CreateForm";
-import Project from "./components/Projects/Project";
 
 const clearStorage = () => {
   let removeList = [

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import PopUpModal from "./PopUpModal";
 import "./style.css";
 
-const PopUp = () => {
-  const [showPopup, setShowPopup] = useState(true);
+const PopUp = ({ group }) => {
+  const [showPopup, setShowPopup] = useState(false);
 
   const handlePopup = () => {
     setShowPopup(!showPopup);
@@ -12,12 +12,13 @@ const PopUp = () => {
   return (
     <div>
       <div>
-        <h1>Lets Finish</h1>
         <button className="button-default" onClick={handlePopup}>
           Open Popout
         </button>
       </div>
-      <div>{showPopup && <PopUpModal onClose={handlePopup} />}</div>
+      <div>
+        {showPopup && <PopUpModal group={group} onClose={handlePopup} />}
+      </div>
     </div>
   );
 };

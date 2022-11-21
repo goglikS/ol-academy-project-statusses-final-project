@@ -95,8 +95,8 @@ export default function Details() {
       </Table>
       <button
         type="button"
-        class="btn btn-success finish-btn"
-        onClick={() => setData()}
+        className="btn btn-success finish-btn"
+        onClick={setData}
       >
         <Link to="/">Finish</Link>
       </button>
