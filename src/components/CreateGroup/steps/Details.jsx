@@ -13,8 +13,6 @@ export default function Details() {
 
   const [groupResults, setGroupResults] = useState(resultsData);
 
-  const groupList = useState(database ? database : []);
-
   const statusses = [
     { id: 0, statusName: "❌❌Not Checked❌❌" },
     { id: 1, statusName: "🚫🚫Fail🚫🚫" },
@@ -31,13 +29,18 @@ export default function Details() {
       tasks: taskData,
       results: groupResults,
     };
-    let currentGroups = [...groupList];
-    currentGroups.push(newGroup);
-    setDatabase(currentGroups);
+    if (!database) {
+      let currentGroups = [];
+      currentGroups.push(newGroup);
+      setDatabase(currentGroups);
+      console.log("carieli", currentGroups);
+    } else {
+      let currentGroups = [...database];
+      currentGroups.push(newGroup);
+      console.log("aracarieli", currentGroups);
+    }
     let removeList = ["groupName", "studentData", "taskData", "resultsData"];
     removeList.forEach((k) => localStorage.removeItem(k));
-
-    console.log(currentGroups);
   };
 
   const updateStatus = (e, studentId, taskId) => {
@@ -67,11 +70,11 @@ export default function Details() {
         </thead>
 
         <tbody>
-          {taskData.map((task) => {
+          {taskData?.map((task) => {
             return (
               <tr key={task.taskId}>
                 <th>{task.taskName}</th>
-                {studentsData.map((student, index) => {
+                {studentsData?.map((student, index) => {
                   return (
                     <td key={index}>
                       <select
@@ -91,8 +94,12 @@ export default function Details() {
           })}
         </tbody>
       </Table>
-      <button type="button" class="btn btn-success finish-btn">
-        <Link to="/">Finish</Link>
+      <button
+        type="button"
+        class="btn btn-success finish-btn"
+        onClick={() => setData()}
+      >
+        {/* <Link to="/">Finish</Link> */}
       </button>
     </div>
   );
