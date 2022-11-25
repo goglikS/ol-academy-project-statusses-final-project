@@ -1,7 +1,7 @@
 .homeBtn {
-  background-color: #4caf50;
+  background-color: var(--mainColor);
+  color: var(--textColor);
   border: none;
-  color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -9,6 +9,7 @@
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+  border-radius: 50%;
 }
 .home-wrapper {
   text-align: center;

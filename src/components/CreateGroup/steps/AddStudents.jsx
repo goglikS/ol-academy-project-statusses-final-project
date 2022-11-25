@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useLocalStorage from "../../useLocalStorage";
+import useLocalStorage from "../../Utils/useLocalStorage";
 
 export default function AddStudents() {
   const [inputValue, setInputValue] = useState("");
