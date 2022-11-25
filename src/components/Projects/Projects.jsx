@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "reactstrap";
 import PopUp from "../Popup/PopUp";
-import useLocalStorage from "../useLocalStorage";
+import useLocalStorage from "../Utils/useLocalStorage";
 import "./Projects.css";
 
 const Projects = () => {

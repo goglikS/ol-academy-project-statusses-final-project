@@ -1,7 +1,7 @@
 import { Table } from "reactstrap";
 import "./steps.css";
 import { useState } from "react";
-import useLocalStorage from "../../useLocalStorage";
+import useLocalStorage from "../../Utils/useLocalStorage";
 import { statusses } from "../../Utils/utils";
 
 export default function Details() {

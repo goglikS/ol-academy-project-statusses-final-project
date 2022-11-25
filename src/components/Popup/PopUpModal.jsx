@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Table } from "reactstrap";
 import "./style.css";
 import { statusses } from "../Utils/utils";
-import useLocalStorage from "../useLocalStorage";
+import useLocalStorage from "../Utils/useLocalStorage";
 
 const PopUpModal = ({ group, onClose }) => {
   const popupRef = useRef(null);

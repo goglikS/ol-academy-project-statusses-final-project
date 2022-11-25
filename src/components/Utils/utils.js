@@ -9,6 +9,7 @@ export const statusses = [
 export const clearStorage = () => {
   let removeList = [
     "groupName",
+    "studentData",
     "studentsData",
     "taskData",
     "resultsData",

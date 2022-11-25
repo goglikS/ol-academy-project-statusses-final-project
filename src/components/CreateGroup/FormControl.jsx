@@ -2,7 +2,7 @@ import { Button } from "reactstrap";
 import "./steps/steps.css";
 import { Link } from "react-router-dom";
 import { clearStorage } from "../Utils/utils";
-import useLocalStorage from "../useLocalStorage";
+import useLocalStorage from "../Utils/useLocalStorage";
 
 export default function FormControl({ handleClick, currentStep }) {
   const [database, setDatabase] = useLocalStorage("database");
@@ -40,9 +40,9 @@ export default function FormControl({ handleClick, currentStep }) {
         results: resultData || defaultResults,
       };
       if (!database) {
-        let currentGroups = [];
-        currentGroups.push(newGroup);
-        setDatabase(currentGroups);
+        let database = [];
+        database.push(newGroup);
+        setDatabase(database);
         clearStorage();
       } else {
         let currentGroups = [...database];
