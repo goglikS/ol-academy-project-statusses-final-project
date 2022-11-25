@@ -1,11 +1,11 @@
 import { Table } from "reactstrap";
 import "./steps.css";
 import { useState } from "react";
-import useLocalStorage from "../../Utils/useLocalStorage";
+import useLocalStorage from "../../useLocalStorage";
 import { statusses } from "../../Utils/utils";
 
 export default function Details() {
-  const groupName = useLocalStorage("groupName");
+  const groupName = JSON.parse(localStorage.getItem("groupName"));
   const studentsData = JSON.parse(localStorage.getItem("studentsData"));
   const taskData = JSON.parse(localStorage.getItem("taskData"));
   const defaultResults = JSON.parse(localStorage.getItem("resultsData"));
@@ -15,11 +15,9 @@ export default function Details() {
 
   const updateStatus = (e, studentId, taskId) => {
     const selectedIndex = e.target.options.selectedIndex;
-    let new_results = newResults.find((result) => {
+    let new_results = newResults.map((result) => {
       if (result.studentId === studentId && result.taskId === taskId) {
-        let number = parseInt(
-          e.target.options[selectedIndex].getAttribute("data-key")
-        );
+        let number = +e.target.options[selectedIndex].getAttribute("data-key");
         result.taskStatus = statusses[number].statusName;
       }
       return result;

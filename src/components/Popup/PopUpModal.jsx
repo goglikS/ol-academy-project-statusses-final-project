@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { Table } from "reactstrap";
 import "./style.css";
 import { statusses } from "../Utils/utils";
-import useLocalStorage from "../Utils/useLocalStorage";
+import useLocalStorage from "../useLocalStorage";
 
 const PopUpModal = ({ group, onClose }) => {
   const popupRef = useRef(null);
   const database = JSON.parse(localStorage.getItem("database"));
-  const [db, setDb] = useLocalStorage("database");
+  const [, setDb] = useLocalStorage("database");
 
   useEffect(() => {
     const handleClick = ({ target }) => {
@@ -28,8 +28,8 @@ const PopUpModal = ({ group, onClose }) => {
     group.results.map((result) => {
       if (result.taskId === taskId && result.studentId === studentId)
         status = result.taskStatus;
-      return status;
     });
+    return status;
   };
 
   const setStatus = (e, taskId, studentId) => {
@@ -83,7 +83,7 @@ const PopUpModal = ({ group, onClose }) => {
                       return (
                         <td key={index}>
                           <select
-                            defaultValue={() => getStatus(task.id, student.id)}
+                            defaultValue={getStatus(task.id, student.id)}
                             onChange={(e) => setStatus(e, task.id, student.id)}
                           >
                             {statusses.map((status, key) => (

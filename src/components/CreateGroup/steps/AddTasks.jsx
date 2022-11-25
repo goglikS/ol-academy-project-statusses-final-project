@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useLocalStorage from "../../Utils/useLocalStorage";
+import useLocalStorage from "../../useLocalStorage";
 import "./steps.css";
 
 export default function AddTasks() {

@@ -2,7 +2,7 @@ import { Button } from "reactstrap";
 import "./steps/steps.css";
 import { Link } from "react-router-dom";
 import { clearStorage } from "../Utils/utils";
-import useLocalStorage from "../Utils/useLocalStorage";
+import useLocalStorage from "../useLocalStorage";
 
 export default function FormControl({ handleClick, currentStep }) {
   const [database, setDatabase] = useLocalStorage("database");
@@ -40,14 +40,14 @@ export default function FormControl({ handleClick, currentStep }) {
         results: resultData || defaultResults,
       };
       if (!database) {
-        let newDb = [];
-        newDb.push(newGroup);
-        setDatabase(newDb);
+        let currentGroups = [];
+        currentGroups.push(newGroup);
+        setDatabase(currentGroups);
         clearStorage();
       } else {
-        let newDb = [...database];
-        newDb.push(newGroup);
-        setDatabase(newDb);
+        let currentGroups = [...database];
+        currentGroups.push(newGroup);
+        setDatabase(currentGroups);
         clearStorage();
       }
     }
@@ -60,7 +60,7 @@ export default function FormControl({ handleClick, currentStep }) {
 
       <Button
         className={currentStep === 4 ? "finishBtn" : "navBtn"}
-        onClick={() => validateStep()}
+        onClick={validateStep}
       >
         {currentStep === 4 ? <Link to="/">Finish</Link> : "Next"}
       </Button>
