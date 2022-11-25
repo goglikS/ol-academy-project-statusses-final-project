@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Table } from "reactstrap";
-import useLocalStorage from "../LocalStorage";
 import "./style.css";
+import { statusses } from "../Utils/utils";
+import useLocalStorage from "../useLocalStorage";
 
 const PopUpModal = ({ group, onClose }) => {
   const popupRef = useRef(null);
   const database = JSON.parse(localStorage.getItem("database"));
-  const [db, setDb] = useLocalStorage("database");
+  const [, setDb] = useLocalStorage("database");
 
   useEffect(() => {
     const handleClick = ({ target }) => {
@@ -20,15 +21,7 @@ const PopUpModal = ({ group, onClose }) => {
     return function cleanUp() {
       document.removeEventListener("click", handleClick);
     };
-  });
-
-  const statusses = [
-    { id: 0, statusName: "❌❌Not Checked❌❌" },
-    { id: 1, statusName: "🚫🚫Fail🚫🚫" },
-    { id: 2, statusName: "🔧🔧 Need to Fix🔧🔧" },
-    { id: 3, statusName: "✔️✔️Need to Improve✔️✔️" },
-    { id: 4, statusName: "✅✅Done✅✅" },
-  ];
+  }, [onClose]);
 
   const getStatus = (taskId, studentId) => {
     let status;

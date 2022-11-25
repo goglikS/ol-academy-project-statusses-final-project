@@ -1,10 +1,10 @@
 import { useState } from "react";
-import useLocalStorage from "../../LocalStorage";
+import useLocalStorage from "../../useLocalStorage";
 import "./steps.css";
 
 export default function AddTasks() {
   const [taskData, setTaskData] = useLocalStorage("taskData");
-  const studentsData = JSON.parse(localStorage.getItem("studentData"));
+  const studentsData = JSON.parse(localStorage.getItem("studentsData"));
   const [resultsData, setResultsData] = useLocalStorage("resultsData");
 
   const [inputValue, setInputValue] = useState("");
@@ -60,7 +60,12 @@ export default function AddTasks() {
             className="input"
             placeholder="Enter Student"
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={({ target: { value } }) => setInputValue(value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(e);
+              }
+            }}
           />
           <button
             className="btn btn-outline-secondary"

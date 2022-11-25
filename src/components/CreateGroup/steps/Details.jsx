@@ -1,57 +1,29 @@
-import { Button, Table } from "reactstrap";
+import { Table } from "reactstrap";
 import "./steps.css";
-import useLocalStorage from "../../LocalStorage";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import useLocalStorage from "../../useLocalStorage";
+import { statusses } from "../../Utils/utils";
 
 export default function Details() {
   const groupName = JSON.parse(localStorage.getItem("groupName"));
-  const studentsData = JSON.parse(localStorage.getItem("studentData"));
+  const studentsData = JSON.parse(localStorage.getItem("studentsData"));
   const taskData = JSON.parse(localStorage.getItem("taskData"));
-  const resultsData = JSON.parse(localStorage.getItem("resultsData"));
-  const [database, setDatabase] = useLocalStorage("database");
+  const defaultResults = JSON.parse(localStorage.getItem("resultsData"));
 
-  const [groupResults, setGroupResults] = useState(resultsData);
-
-  const statusses = [
-    { id: 0, statusName: "❌❌Not Checked❌❌" },
-    { id: 1, statusName: "🚫🚫Fail🚫🚫" },
-    { id: 2, statusName: "🔧🔧 Need to Fix🔧🔧" },
-    { id: 3, statusName: "✔️✔️Need to Improve✔️✔️" },
-    { id: 4, statusName: "✅✅Done✅✅" },
-  ];
-
-  const setData = () => {
-    let newGroup = {
-      groupId: Date.now(),
-      groupName: groupName,
-      students: studentsData,
-      tasks: taskData,
-      results: groupResults,
-    };
-    if (!database) {
-      let currentGroups = [];
-      currentGroups.push(newGroup);
-      setDatabase(currentGroups);
-    } else {
-      let currentGroups = [...database];
-      currentGroups.push(newGroup);
-      setDatabase(currentGroups);
-    }
-    let removeList = ["groupName", "studentData", "taskData", "resultsData"];
-    removeList.forEach((k) => localStorage.removeItem(k));
-  };
+  const [, setNewResultsData] = useLocalStorage("results");
+  const [newResults, setNewResults] = useState(defaultResults);
 
   const updateStatus = (e, studentId, taskId) => {
     const selectedIndex = e.target.options.selectedIndex;
-    let new_results = resultsData.map((result) => {
+    let new_results = newResults.map((result) => {
       if (result.studentId === studentId && result.taskId === taskId) {
         let number = +e.target.options[selectedIndex].getAttribute("data-key");
         result.taskStatus = statusses[number].statusName;
       }
       return result;
     });
-    setGroupResults(new_results);
+    setNewResults(new_results);
+    setNewResultsData(new_results);
   };
 
   return (
@@ -76,15 +48,17 @@ export default function Details() {
                 {studentsData?.map((student, index) => {
                   return (
                     <td key={index}>
-                      <select
-                        onChange={(e) => updateStatus(e, student.id, task.id)}
-                      >
-                        {statusses.map((status, key) => (
-                          <option key={key} data-key={key}>
-                            {status.statusName}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="custom-select">
+                        <select
+                          onChange={(e) => updateStatus(e, student.id, task.id)}
+                        >
+                          {statusses.map((status, key) => (
+                            <option key={key} data-key={key}>
+                              {status.statusName}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </td>
                   );
                 })}
@@ -93,13 +67,12 @@ export default function Details() {
           })}
         </tbody>
       </Table>
-      <button
+      {/* <button
         type="button"
         className="btn btn-success finish-btn"
         onClick={setData}
       >
-        <Link to="/">Finish</Link>
-      </button>
+        {/* <Link to="/">Finish</Link> */}
     </div>
   );
 }

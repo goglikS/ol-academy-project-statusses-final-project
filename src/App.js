@@ -1,26 +1,15 @@
-import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
+import Header from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import { Route, Routes } from "react-router-dom";
 import Projects from "./components/Projects/Projects";
 import Home from "./components/Home/Home";
 import CreateForm from "./components/CreateGroup/CreateForm";
-
-const clearStorage = () => {
-  let removeList = [
-    "studentData",
-    "groupName",
-    "taskData",
-    "groupData",
-    "studentData",
-  ];
-  removeList.forEach((k) => localStorage.removeItem(k));
-};
+import { clearStorage } from "./components/Utils/utils";
 
 function App() {
   return (
     <div className="App">
-      <NavBar clearStorage={clearStorage} />
+      <Header clearStorage={clearStorage} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/projects" element={<Projects />} />

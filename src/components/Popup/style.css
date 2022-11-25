@@ -3,8 +3,8 @@
   top: 0;
   left: 0;
   z-index: 1040;
-  width: 1000vw;
-  height: 1000vh;
+  width: 100vw;
+  height: 100vh;
   background-color: #000;
   opacity: 0.5;
 }
@@ -55,7 +55,9 @@ button {
   margin-left: 0.5rem;
 }
 
-.button-default {
+.seeBtn {
   background: #247ba0;
   color: #fff;
+  margin: 10px;
+  border-radius: 60%;
 }

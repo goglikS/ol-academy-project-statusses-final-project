@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { clearStorage, navLinks } from "../Utils/utils";
 import "./NavBar.css";
 
-function NavBar({ clearStorage }) {
+function NavBar() {
   const navRef = useRef();
 
   const showNavbar = () => {
@@ -15,14 +16,14 @@ function NavBar({ clearStorage }) {
       <header>
         <h3>Project Statusses</h3>
         <nav ref={navRef}>
-          <div className="link">
-            <Link to="/" onClick={() => clearStorage()}>
-              Home
-            </Link>
-          </div>
-          <div className="link">
-            <Link to="/projects">Projects</Link>
-          </div>
+          {navLinks.map(({ text, path }) => (
+            <div className="link" key={text}>
+              <Link to={path} onClick={clearStorage}>
+                {text}
+              </Link>
+            </div>
+          ))}
+
           <button className="nav-btn nav-close-btn" onClick={showNavbar}>
             <FaTimes />
           </button>

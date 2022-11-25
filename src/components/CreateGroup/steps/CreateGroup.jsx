@@ -1,13 +1,13 @@
 import { useState } from "react";
-import useLocalStorage from "../../LocalStorage";
+import useLocalStorage from "../../useLocalStorage";
 
-function CreateGroup() {
+function CreateGroup({ nextStep }) {
   const [groupName, setGroupName] = useLocalStorage("groupName");
-  const [inputValue, setInputValue] = useState(groupName ? groupName : "");
+  const [inputValue, setInputValue] = useState(groupName || "");
 
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-    setGroupName(e.target.value);
+  const handleChange = ({ target }) => {
+    setInputValue(target.value);
+    setGroupName(target.value);
   };
 
   return (
@@ -20,6 +20,13 @@ function CreateGroup() {
             placeholder="Enter GroupName"
             value={inputValue}
             onChange={handleChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setInputValue(e.target.value);
+                setGroupName(e.target.value);
+                nextStep();
+              }
+            }}
           />
         </div>
       </div>

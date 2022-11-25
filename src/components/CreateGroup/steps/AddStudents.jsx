@@ -1,12 +1,10 @@
 import { useState } from "react";
-import useLocalStorage from "../../LocalStorage";
+import useLocalStorage from "../../useLocalStorage";
 
 export default function AddStudents() {
   const [inputValue, setInputValue] = useState("");
-  const [studentData, setStudentData] = useLocalStorage("studentData");
-  const [studentList, setStudentList] = useState(
-    studentData ? studentData : []
-  );
+  const [studentData, setStudentData] = useLocalStorage("studentsData");
+  const [studentList, setStudentList] = useState(studentData || []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,20 +13,19 @@ export default function AddStudents() {
   };
   const addStudent = (userInput) => {
     if (userInput !== "") {
-      let updatedStudents = [...studentList];
-      updatedStudents = [
-        ...updatedStudents,
+      let updatedStudents = [
+        ...studentList,
         { id: Date.now(), studentName: userInput },
       ];
+
       setStudentData(updatedStudents);
       setStudentList(updatedStudents);
     } else alert("Wrong Value");
   };
 
   const removeStudent = (delId) => {
-    let updatedStudents = [...studentList];
-    setStudentData(updatedStudents.filter(({ id }) => id !== delId));
-    setStudentList(updatedStudents.filter(({ id }) => id !== delId));
+    setStudentData(studentData.filter(({ id }) => id !== delId));
+    setStudentList(studentList.filter(({ id }) => id !== delId));
   };
 
   return (
@@ -40,7 +37,12 @@ export default function AddStudents() {
             type="text"
             placeholder="Enter Student"
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={({ target: { value } }) => setInputValue(value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(e);
+              }
+            }}
           />
 
           <button

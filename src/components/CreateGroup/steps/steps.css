@@ -6,13 +6,18 @@ input {
   justify-content: center;
 }
 
-.test {
+.form {
   text-align: center;
 }
 
 .navBtn {
   margin: 100px;
 }
+.finishBtn {
+  margin: 100px;
+  text-decoration: none;
+}
+
 .dropdown {
   position: relative;
 }
@@ -62,11 +67,15 @@ input {
     var(--bs-list-group-border-color);
 }
 
-.finish-btn a {
-  text-decoration: none;
-  color: white;
-}
-
 ul li {
   list-style-type: none;
+}
+
+.finishBtn a {
+  color: rgb(0, 0, 0);
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+.finishBtn a:hover {
+  color: rgb(0, 0, 0) !important;
 }
