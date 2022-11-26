@@ -28,8 +28,8 @@ const PopUpModal = ({ group, onClose }) => {
     group.results.map((result) => {
       if (result.taskId === taskId && result.studentId === studentId)
         status = result.taskStatus;
-      return status;
     });
+    return status;
   };
 
   const setStatus = (e, taskId, studentId) => {
